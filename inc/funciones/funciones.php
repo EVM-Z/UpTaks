@@ -1,8 +1,8 @@
 <?php
+// Obtener la pagina actual que se ejecuta
 function obtenerPaginaActual(){
     $archivo=basename($_SERVER['PHP_SELF']);
     $pagina=str_replace(".php", "", $archivo);
-    echo $pagina;
+    return $pagina;
 }
-
 ?>

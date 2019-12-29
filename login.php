@@ -2,9 +2,6 @@
 include 'inc/funciones/funciones.php';
 include 'inc/templates/header.php';
 ?>
-
-<body class="login">
-
     <div class="contenedor-formulario">
         <h1>UpTask</h1>
         <form id="formulario" class="caja-login" method="post">
@@ -27,8 +24,6 @@ include 'inc/templates/header.php';
         </form>
     </div>
 
-    <script src="js/sweetalert2.all.min.js"></script>
-
-
-</body>
-</html>
+<?php
+    include 'inc/templates/footer.php';
+?>
