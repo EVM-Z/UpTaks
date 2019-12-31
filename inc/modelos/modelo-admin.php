@@ -21,11 +21,16 @@ if($accion==='crear'){
         // Vamos a ingresar dos strign
         $stmt->bind_param('ss', $usuario, $hash_password);
         $stmt->execute();
-        if($stmt->affected_rows){
+        if($stmt->affected_rows > 0){
             $respuesta=array(
                 'respuesta'=>'correcto',
                 'id_insertado'=>$stmt->insert_id,
                 'tipo'=>$accion
+            );
+        }
+        else{
+            $respuesta=array(
+                'respuesta'=>'error'
             );
         }
         // Cerramos el stament
