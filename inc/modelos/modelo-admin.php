@@ -50,5 +50,39 @@ if($accion==='crear'){
 }
 if($accion==='login'){
     // Escribir codigo para loguee a los administradores
+
+    // Importamos la conexion
+    include '../funciones/conexion.php';
+    try {
+        // Seleccionar el adminsitrador de la base de datos
+        $stmt=$conn->prepare("SELECT usuario, id, password FROM usuarios WHERE usuario = ?" );
+        $stmt->bind_param('s', $usuario);
+        $stmt->execute();
+        // Loguear el usuario
+        $stmt->bind_result($nombre_usuario, $id_usuario, $pass_usuario);
+        $stmt->fetch();
+        // Si esxiste el usuario entra en el if
+        if($nombre_usuario){
+            $respuesta=array(
+                'respuesta'=>'correcto',
+                'nombre'=>$nombre_usuario,
+                'id'=>$id_usuario,
+                'pass'=>$pass_usuario
+            );
+        }
+        else{
+            $respuesta=array(
+                'error'=>'Usuario no existe'
+            );
+        }
+        $stmt->close();
+        $conn->close();
+    } catch (Exception $e) {
+        // En caso de un error, tomar la exception
+        $respuesta=array(
+            'pass'=>$e->getMessage()
+        );
+    }
+    echo json_encode($respuesta);
 }
 ?>

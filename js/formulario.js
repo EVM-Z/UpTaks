@@ -34,6 +34,7 @@ function validarRegistro(e) {
                 if (this.status === 200) {
                     var respuesta = JSON.parse(xhr.responseText);
 
+                    console.log(respuesta);
                     // Si la respuesta es correcta
                     if (respuesta.respuesta === 'correcto') {
                         // Si es un nuevo usuario
@@ -44,6 +45,7 @@ function validarRegistro(e) {
                                 type: 'success'
                             });
                         }
+
                     } else {
                         // Hubo un error
                         swal({
