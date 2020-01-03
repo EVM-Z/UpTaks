@@ -61,20 +61,29 @@ if($accion==='login'){
         // Loguear el usuario
         $stmt->bind_result($nombre_usuario, $id_usuario, $pass_usuario);
         $stmt->fetch();
-        // Si esxiste el usuario entra en el if
-        if($nombre_usuario){
+        // $password es la contraseña que escribe el usuario
+        // $pass_usuario es el passward hasheado
+        if (password_verify($password, $pass_usuario)) {
+            // Login correcto
+            // Si esxiste el usuario entra en el if
             $respuesta=array(
                 'respuesta'=>'correcto',
-                'nombre'=>$nombre_usuario,
-                'id'=>$id_usuario,
-                'pass'=>$pass_usuario
+                'nombre'=>$nombre_usuario
             );
         }
         else{
+            // Login incorrecto, enviar error
             $respuesta=array(
-                'error'=>'Usuario no existe'
+                'resultado'=>'Password Incorrecto'
             );
         }
+        
+        // }
+        // else{
+        //     $respuesta=array(
+        //         'error'=>'Usuario no existe'
+        //     );
+        // }
         $stmt->close();
         $conn->close();
     } catch (Exception $e) {
