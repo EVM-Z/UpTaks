@@ -2,18 +2,9 @@
 include 'inc/funciones/sesiones.php';
 include 'inc/funciones/funciones.php';
 include 'inc/templates/header.php';
+include 'inc/templates/barra.php';
 
-echo "<pre>";
-var_dump($_SESSION);
-echo "</pre>";
 ?>
-
-<body>
-
-<div class="barra">
-    <h1>UpTask - Administración de Proyectos</h1>
-    <a href="#">Cerrar Sesión</a>
-</div>
 
 <div class="contenedor">
     <aside class="contenedor-proyectos">
