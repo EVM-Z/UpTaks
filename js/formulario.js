@@ -44,6 +44,17 @@ function validarRegistro(e) {
                                 text: 'El usuario se creó correctamente',
                                 type: 'success'
                             });
+                        } else if (respuesta.tipo === 'login') {
+                            swal({
+                                    title: 'Login Correcto',
+                                    text: 'Presiona OK para abrir el dashborad',
+                                    type: 'success'
+                                })
+                                .then(resultado => {
+                                    if (resultado.value) {
+                                        window.location.href = 'index.php';
+                                    }
+                                })
                         }
 
                     } else {
