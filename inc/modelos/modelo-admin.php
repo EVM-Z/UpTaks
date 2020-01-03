@@ -64,8 +64,13 @@ if($accion==='login'){
         // $password es la contraseña que escribe el usuario
         // $pass_usuario es el passward hasheado
         if (password_verify($password, $pass_usuario)) {
+            // Iniciar la sesion
+            session_start();
+            $_SESSION['nombre']=$usuario;
+            $_SESSION['id']=$id_usuario;
+            $_SESSION['login']=true;
             // Login correcto
-            // Si esxiste el usuario entra en el if
+            // Si existe el usuario entra en el if
             $respuesta=array(
                 'respuesta'=>'correcto',
                 'nombre'=>$nombre_usuario,

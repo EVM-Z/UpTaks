@@ -1,6 +1,11 @@
-<?php 
+<?php
+include 'inc/funciones/sesiones.php';
 include 'inc/funciones/funciones.php';
 include 'inc/templates/header.php';
+
+echo "<pre>";
+var_dump($_SESSION);
+echo "</pre>";
 ?>
 
 <body>
