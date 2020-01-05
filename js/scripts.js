@@ -33,12 +33,22 @@ function nuevoProyecto(e) {
 }
 
 function guardarProyectoDB(nombreProyecto) {
-    // Inyectar el HTML
-    var nuevoProyecto = document.createElement('li');
-    nuevoProyecto.innerHTML = `
-        <a href="#">
-            ${nombreProyecto}
-        </a>
-    `;
-    listaProyectos.appendChild(nuevoProyecto);
+    //  Crear llamado AJAX
+    var xhr = new XMLHttpRequest();
+
+    // Enviar datos por formdata
+    var datos = new FormData();
+    datos.append('proyecto', nombreProyecto);
+    datos.append('accion', 'crear');
+
+    // Abrir la conexion
+    xhr.open('POST', 'inc/modelos/modelo-proyecto.php', true);
+    // En la carga
+    xhr.onload = function() {
+            if (this.status === 200) {
+                console.log(JSON.parse(xhr.responseText));
+            }
+        }
+        // Enviar el request
+    xhr.send(datos);
 }
