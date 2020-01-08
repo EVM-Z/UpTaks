@@ -40,14 +40,15 @@ if($accion==='crear'){
     } catch(Exception $e){
         // En caso de error, tomar la exception
         $respuesta=array(
-            'pass'=>$e->getMessage()
+            'error'=>$e->getMessage()
         );
     }
 
     echo json_encode($respuesta);
-
-    
 }
+
+
+
 if($accion==='login'){
     // Escribir codigo para loguee a los administradores
 

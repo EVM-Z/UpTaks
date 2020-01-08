@@ -46,7 +46,52 @@ function guardarProyectoDB(nombreProyecto) {
     // En la carga
     xhr.onload = function() {
             if (this.status === 200) {
-                console.log(JSON.parse(xhr.responseText));
+                // Obtener datos de la respuesta
+                var respuesta = JSON.parse(xhr.responseText);
+                var proyecto = respuesta.nombre_proyecto,
+                    id_proyecto = respuesta.id_insertado,
+                    tipo = respuesta.tipo,
+                    resultado = respuesta.respuesta;
+
+                // Comprobar la insercion
+                if (resultado === 'correcto') {
+                    // Fue exitoso
+                    if (tipo === 'crear') {
+                        // Se creo un nuevo proyecto
+                        // Inyectar en el HTML
+                        var nuevoProyecto = document.createElement('li');
+                        nuevoProyecto.innerHTML = `
+                            <a href="index.php?id_respuesta=${id_proyecto}" id="${id_proyecto}">
+                                ${proyecto}
+                            </a>
+                        `;
+                        // Agregar al HTML
+                        listaProyectos.appendChild(nuevoProyecto);
+
+                        // Enviar alerta
+                        swal({
+                                title: 'Proyecto Creado',
+                                text: 'El proyecto: ' + proyecto + ' se creó correctamente',
+                                type: 'success'
+                            })
+                            .then(resultado => {
+                                // Redireccionar a la nueva URL
+                                if (resultado.value) {
+                                    window.location.href = 'index.php?id_proyecto=' + id_proyecto;
+                                }
+                            })
+
+                    } else {
+                        // Se actualizo o se elimino
+                    }
+                } else {
+                    // Hubo un error
+                    swal({
+                        title: 'Error',
+                        text: 'Hubo un error',
+                        type: 'error'
+                    });
+                }
             }
         }
         // Enviar el request
