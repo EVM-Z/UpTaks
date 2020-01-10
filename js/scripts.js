@@ -123,7 +123,7 @@ function agregarTarea(e) {
         // crear el formdata
         var datos = new FormData();
         datos.append('tarea', nombreTarea);
-        datos.append('tipo', 'crear');
+        datos.append('accion', 'crear');
         datos.append('id_proyecto', document.querySelector('#id_proyecto').value);
 
         // Abrir la conexion
@@ -132,6 +132,7 @@ function agregarTarea(e) {
         // Ejecutarlo y respuesta
         xhr.onload = function() {
             if (this.status === 200) {
+
                 // Todo correcto
                 var respuesta = JSON.parse(xhr.responseText);
                 console.log(respuesta);
