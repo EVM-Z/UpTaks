@@ -135,7 +135,56 @@ function agregarTarea(e) {
 
                 // Todo correcto
                 var respuesta = JSON.parse(xhr.responseText);
-                console.log(respuesta);
+
+                // Asignar valores
+                var resultado = respuesta.respuesta,
+                    tarea = respuesta.tarea,
+                    id_insertado = respuesta.id_insertado,
+                    tipo = respuesta.tipo;
+
+                if (resultado === 'correcto') {
+                    // Se agregó correctamente
+                    if (tipo === 'crear') {
+                        // Lanzar la alerta
+                        swal({
+                            title: 'Tarea Creada',
+                            text: 'La tarea: ' + tarea + ' se creo correctamente',
+                            type: 'success'
+                        });
+
+                        // Contruir el template
+                        var nuevaTarea = document.createElement('li');
+
+                        // Agregamos el ID
+                        nuevaTarea.id = 'tarea' + id_insertado;
+
+                        // Agregar la clase tarea
+                        nuevaTarea.classList.add('tarea');
+
+                        // Contruir el HTML
+                        nuevaTarea.innerHTML = `
+                            <p>${tarea}</p>
+                            <div class="acciones">
+                                <i class="far fa-check-circle"></i>
+                                <i class="fas fa-trash"></i>
+                            <div>
+                        `;
+
+                        // Agregarlo al HTML
+                        var listado = document.querySelector('.listado-pendientes ul');
+                        listado.appendChild(nuevaTarea);
+
+                        // Limpiar formulario
+                        document.querySelector('.agregar-tarea').reset();
+                    }
+                } else {
+                    // Hubo un error
+                    swal({
+                        title: 'Error',
+                        text: 'Hubo un error',
+                        type: 'error'
+                    });
+                }
             }
         }
 
