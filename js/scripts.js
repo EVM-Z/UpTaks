@@ -202,10 +202,25 @@ function accionesTareas(e) {
     e.preventDefault();
 
     if (e.target.classList.contains('fa-check-circle')) {
-        console.log('Hiciste click en el circulo');
+        if (e.target.classList.contains('completo')) {
+            // Remueve la clase
+            e.target.classList.remove('completo');
+            cambiarEstadoTarea(e.target);
+        } else {
+            // Agrega la clase en caso de que no la tenga
+            e.target.classList.add('completo');
+            cambiarEstadoTarea(e.target);
+        }
     }
 
     if (e.target.classList.contains('fa-trash')) {
         console.log('Hiciste click en el icono de borrar');
     }
+}
+
+// Completa o descompleta una tarea
+function cambiarEstadoTarea(tarea) {
+    var idTarea = tarea.parentElement.parentElement.id.split(':');
+    // parentElement para subir al padre
+    console.log(idTarea[1]);
 }
