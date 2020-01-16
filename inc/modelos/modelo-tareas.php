@@ -1,9 +1,7 @@
 <?php
 
-$accion=$_POST['accion'];
 $id_proyecto=(int)$_POST['id_proyecto'];
 $tarea=$_POST['tarea'];
-
 
 if($accion==='crear'){
     // Importar la conexion
@@ -38,7 +36,6 @@ if($accion==='crear'){
             'error'=>$e->getMessage()
         );
     }
-
     echo json_encode($respuesta);
 }
 ?>

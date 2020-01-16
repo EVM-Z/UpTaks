@@ -205,11 +205,11 @@ function accionesTareas(e) {
         if (e.target.classList.contains('completo')) {
             // Remueve la clase
             e.target.classList.remove('completo');
-            cambiarEstadoTarea(e.target);
+            cambiarEstadoTarea(e.target, 0);
         } else {
             // Agrega la clase en caso de que no la tenga
             e.target.classList.add('completo');
-            cambiarEstadoTarea(e.target);
+            cambiarEstadoTarea(e.target, 1);
         }
     }
 
@@ -219,8 +219,28 @@ function accionesTareas(e) {
 }
 
 // Completa o descompleta una tarea
-function cambiarEstadoTarea(tarea) {
+function cambiarEstadoTarea(tarea, estado) {
     var idTarea = tarea.parentElement.parentElement.id.split(':');
-    // parentElement para subir al padre
-    console.log(idTarea[1]);
+
+    // Crear el llamado AJAX
+    var xhr = new XMLHttpRequest();
+
+    // Informacion
+    var datos = new FormData();
+    datos.append('id', idTarea[1]);
+    datos.append('accion', 'actualizar');
+    datos.append('estado', estado);
+
+    // Abrir la conexion
+    xhr.open('POST', 'inc/modelos/modelo-tarea-actualizar.php', true);
+
+    // On load
+    xhr.onload = function() {
+        if (this.status === 200) {
+            console.log(JSON.parse(xhr.responseText));
+        }
+    }
+
+    // Enviar la peticion
+    xhr.send(datos);
 }
