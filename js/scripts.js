@@ -214,7 +214,32 @@ function accionesTareas(e) {
     }
 
     if (e.target.classList.contains('fa-trash')) {
-        console.log('Hiciste click en el icono de borrar');
+        Swal.fire({
+            title: '¿Estas segur@?',
+            text: "Esta accion no se puede deshacer",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, borrar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value) {
+
+                var tareaEliminar = e.target.parentElement.parentElement;
+
+                // Borrar en la BD
+                eliminarTareaBD(tareaEliminar);
+                // Borrar del HMTL
+                tareaEliminar.remove();
+
+                Swal.fire(
+                    'Eliminado',
+                    'Tu registro ha sido eliminado',
+                    'success'
+                )
+            }
+        })
     }
 }
 
@@ -243,4 +268,9 @@ function cambiarEstadoTarea(tarea, estado) {
 
     // Enviar la peticion
     xhr.send(datos);
+}
+
+// Elimina las tareas de la base de datos
+function eliminarTareaBD(tarea) {
+    console.log(tarea);
 }
