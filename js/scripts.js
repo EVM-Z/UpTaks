@@ -155,6 +155,13 @@ function agregarTarea(e) {
                             type: 'success'
                         });
 
+                        // Seleccionar el parrafo con la lista vacia
+                        var parrafoListaVacia = document.querySelectorAll('.lista-vacia');
+                        if (parrafoListaVacia.length > 0) {
+                            document.querySelector('.lista-vacia').remove();
+                        }
+
+
                         // Contruir el template
                         var nuevaTarea = document.createElement('li');
 
@@ -288,7 +295,13 @@ function eliminarTareaBD(tarea) {
     // On load
     xhr.onload = function() {
         if (this.status === 200) {
-            console.log(xhr.responseText);
+            console.log(JSON.parse(xhr.responseText));
+
+            // Comprobar que haya tareas restantes
+            var listaTareasRestantes = document.querySelectorAll('li.tarea');
+            if (listaTareasRestantes.length === 0) {
+                document.querySelector('.listado-pendientes ul').innerHTML = "<p class='lista-vacia'> No hay tareas en este proyecto </p>";
+            }
         }
     }
 

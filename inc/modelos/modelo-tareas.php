@@ -1,5 +1,6 @@
 <?php
 
+$accion=$_POST['accion'];
 $id_proyecto=(int)$_POST['id_proyecto'];
 $tarea=$_POST['tarea'];
 
