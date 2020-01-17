@@ -272,5 +272,26 @@ function cambiarEstadoTarea(tarea, estado) {
 
 // Elimina las tareas de la base de datos
 function eliminarTareaBD(tarea) {
-    console.log(tarea);
+    var idTarea = tarea.id.split(':');
+
+    // Crear el llamado AJAX
+    var xhr = new XMLHttpRequest();
+
+    // Informacion
+    var datos = new FormData();
+    datos.append('id', idTarea[1]);
+    datos.append('accion', 'eliminar');
+
+    // Abrir la conexion
+    xhr.open('POST', 'inc/modelos/modelo-tarea-eliminar.php', true);
+
+    // On load
+    xhr.onload = function() {
+        if (this.status === 200) {
+            console.log(xhr.responseText);
+        }
+    }
+
+    // Enviar la peticion
+    xhr.send(datos);
 }
